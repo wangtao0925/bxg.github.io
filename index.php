@@ -1,7 +1,7 @@
 <?php 
 	$path='index';//view下面文件夹的名称
 	$filename='index';//文件夹下面文件名称（不包括文件后缀）
-	if(array_key_exists('PATH_INFO',$_SERVER)){// 判断数组中是否包含对应的key
+	if(isset($_SERVER['PATH_INFO'])){// 判断数组中是否包含对应的key
 		$url=$_SERVER['PATH_INFO'];
 		$str=substr($url,1);
 		$pathinfo=explode('/',$str);
@@ -14,5 +14,5 @@
 	}else{
 			$filename='login';
 	};
-	include('/view/'.$path.'/'.$filename.'.html');
+	include('./views/'.$path.'/'.$filename.'.html');
 ?>
