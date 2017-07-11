@@ -26,7 +26,7 @@ var tpl='<div class="avatar img-circle">'
 var html=template.render(tpl,info?JSON.parse(info):{});
 $('.aside .profile').html(html);
 // 验证用户是否登录过
-if(!$.cookie('PHPSESSID')&&location.pathname!='/'&&location.pathname!='/login'){
+if(!$.cookie('PHPSESSID')&&location.pathname!='/'&&location.href!='/login'){
 	location.href = '/';
 };
 });

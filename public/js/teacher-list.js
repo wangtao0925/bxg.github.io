@@ -6,10 +6,34 @@ define(['jquery', 'template', 'bootstrap'], function ($, template) {
         success: function (data) {
             var html = template('teacherTpl', {list: data.result});
             $('#teacherInfo').html(html);
-
-
+// 实现教师注销和启用功能
+$('#teacherInfo').find('.switchBtn').click(function () {
+    var td=$(this).parent();
+    var tcId=td.attr('data-tcId');
+    var tcStatus=td.attr('data-tcStatus');
+    var that=this;
+    $.ajax({
+        type:'post',
+        url:'/api/teacher/handle',
+        data:{
+            tc_id:tcId,
+            tc_status:tcStatus
+        },
+        dataType:'json',
+        success:function(data){
+            td.attr('data-tcStatus',data.result.tc_status);
+            if(data.result.tc_status == 0){
+                $(that).text('启用');
+            }else{
+                $(that).text('注销');
+            };
+        }
+    });
+});
+// 实现教师查看功能
             $('#teacherInfo').find('.preview').click(function () {
-                var tcId=$(this).parent().attr('data-tcId');
+                var td=$(this).parent();
+                var tcId=td.attr('data-tcId');
                 //var tcId=$(this).closest('td').attr('data-tcId');
                 //console.log(tcId);
                 //console.dir($(this).closest());
